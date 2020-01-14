@@ -10,6 +10,7 @@
 package common
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/xelabs/go-mysqlstack/driver"
@@ -70,6 +71,7 @@ func NewPool(log *xlog.Log, cap int, address string, user string, password strin
 // Get used to get one connection from the pool.
 func (p *Pool) Get() *Connection {
 	conns := p.getConns()
+	fmt.Printf("%#v\n", conns)
 	if conns == nil {
 		return nil
 	}
