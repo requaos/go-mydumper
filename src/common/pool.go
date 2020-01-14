@@ -52,6 +52,7 @@ func NewPool(log *xlog.Log, cap int, address string, user string, password strin
 	conns := make(chan *Connection, cap)
 	for i := 0; i < cap; i++ {
 		client, err := driver.NewConn(user, password, address, "", "utf8")
+		fmt.Println(client.Ping())
 		if err != nil {
 			return nil, err
 		}
@@ -59,7 +60,7 @@ func NewPool(log *xlog.Log, cap int, address string, user string, password strin
 		if vars != "" {
 			conn.Execute(vars)
 		}
-		fmt.Println(conn.client.Ping())
+		//fmt.Println(conn.client.Ping())
 		conns <- conn
 	}
 
