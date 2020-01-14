@@ -59,6 +59,7 @@ func NewPool(log *xlog.Log, cap int, address string, user string, password strin
 		if vars != "" {
 			conn.Execute(vars)
 		}
+		fmt.Println(conn.client.Ping())
 		conns <- conn
 	}
 
@@ -71,11 +72,11 @@ func NewPool(log *xlog.Log, cap int, address string, user string, password strin
 // Get used to get one connection from the pool.
 func (p *Pool) Get() *Connection {
 	conns := p.getConns()
-	fmt.Printf("%#v\n", conns)
 	if conns == nil {
 		return nil
 	}
 	conn := <-conns
+	fmt.Println(conn.client.Ping())
 	return conn
 }
 
